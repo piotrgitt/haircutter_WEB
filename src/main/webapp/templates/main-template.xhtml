@@ -3,32 +3,102 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:h="http://xmlns.jcp.org/jsf/html">
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title><ui:insert name="title">...</ui:insert></title>
-	<h:outputStylesheet name="css/style.css" library="template" />
-	<link type="image/x-icon" rel="shortcut icon"
-		href="#{resource['template:img/java.ico']}" />
+	<title><ui:insert name="title">Haircutter JSF</ui:insert></title>
+	<link type="image/x-icon" rel="shortcut icon" href="#{resource['template:img/java.ico']}" />
+	<h:outputStylesheet name="css/main.css" library="assets" />
+	<h:outputStylesheet name="css/all.css" library="assets" />
+	<h:outputStylesheet name="all.css" library="assets" />
+	<h:outputStylesheet name="css/noscript.css" library="assets"/>
+	<h:outputScript library="assets" name="js/functions.js" />
+
+		
 </h:head>
 
 <h:body>
-	<div id="page_wrapper">
-		<ui:insert name="header">
-			<div id="header" class="box bottom-space">
-				<ui:include src="/templates/header-snippet.xhtml" />
+ 
+	<div id="page-wrapper">
+	
+		<!-- Header -->
+			<div id="header">
+				<h1 id="logo"><a href="{$app_url}/index.html">Haircutter</a></h1>
+				<nav id="nav">
+					<ul>
+						<li><h:link value="Strona główna" outcome="index" /></li>
+						<li><h:link value="Usługi" outcome="services" /></li>
+						<li><h:link value="Galeria" outcome="gallery" /></li>
+						<li><h:link value="Cennik" outcome="pricing" /></li>
+						<li><h:link value="Kontakt" outcome="contact" /></li>
+						<li><h:link value="Zaplanuj wizytę" outcome="reservation" /></li>
+						<li><h:link value="Zarejestruj się" outcome="register" class="button primary" /></li>
+						<li><h:link value="Zaloguj się" outcome="login" /></li>
+<!--                         <li><a href="{$conf->action_root}services">Usługi</a></li> -->
+<!--                         <li><a href="{$conf->action_root}gallery">Galeria</a></li> -->
+<!--                         <li><a href="{$conf->action_root}pricing">Cennik</a></li> -->
+<!-- 						<li><a href="{$conf->action_root}contact">Kontakt</a></li> -->
+<!--                         <li><a href="{$conf->action_root}reservation">Zaplanuj wizytę</a></li> -->
+<!--                         <li><a href="{$conf->action_root}register" class="button primary">Zarejestruj się</a></li> -->
+<!--                         <li><a href="{$conf->action_root}login">Zaloguj się</a></li> -->
+					</ul>
+				</nav>
 			</div>
-		</ui:insert>
-		<div id="content" class="box bottom-space">
-			<ui:insert name="content"></ui:insert>
-		</div>
-		<ui:insert name="footer">
-			<div id="footer" class="box bottom-space">
-				<ui:include src="/templates/footer-snippet.xhtml" />
+			
+       		<!-- content -->    
+		    <div id="content" class="box bottom-space">
+				<ui:insert name="content"></ui:insert>
 			</div>
-		</ui:insert>
-	</div>
+                         
+        	<!-- Messages -->           
+                                        
+			<!-- Footer -->
+			<div id="footer">
+				
+				<ul class="icons">
+					<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
+					<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
+					<li><a href="#" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+					<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
+					<li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+					<li><a href="#" class="icon solid alt fa-envelope"><span class="label">Email</span></a></li>
+					
+				</ul>
+				<ul class="copyright">
+					<li>&copy; Piotr Herdzina. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+				</ul>
+			</div>
+
+		<!-- Scripts -->
+			<h:outputScript library="assets" name="js/jquery.min.js" />
+			<h:outputScript library="assets" name="js/jquery.scrolly.min.js" />
+			<h:outputScript library="assets" name="js/jquery.dropotron.min.js" />
+			<h:outputScript library="assets" name="js/jquery.scrollex.min.js" />
+			<h:outputScript library="assets" name="js/browser.min.js" />
+			<h:outputScript library="assets" name="js/breakpoints.min.js" />
+			<h:outputScript library="assets" name="js/util.js" />
+			<h:outputScript library="assets" name="js/main.js" />
+			
+		
+        </div>  
+
+<!-- 	<div id="page_wrapper"> -->
+<!-- 		<ui:insert name="header"> -->
+<!-- 			<div id="header" class="box bottom-space"> -->
+<!-- 				<ui:include src="/templates/header-snippet.xhtml" /> -->
+<!-- 			</div> -->
+<!-- 		</ui:insert> -->
+<!-- 		<div id="content" class="box bottom-space"> -->
+<!-- 			<ui:insert name="content"></ui:insert> -->
+<!-- 		</div> -->
+<!-- 		<ui:insert name="footer"> -->
+<!-- 			<div id="footer" class="box bottom-space"> -->
+<!-- 				<ui:include src="/templates/footer-snippet.xhtml" /> -->
+<!-- 			</div> -->
+<!-- 		</ui:insert> -->
+<!-- 	</div> -->
 </h:body>
 
 </html>

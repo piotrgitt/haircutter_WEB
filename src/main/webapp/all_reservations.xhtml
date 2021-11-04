@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition template="/templates/main-template.xhtml">
+
+
+
+	<ui:define name="content">
+<!-- WYSZUKIWANIE PO NAZWISKU -->
+		<p:panel header="Opcje wyszukiwania" toggleable="true" collapsed="true"
+			style="margin-bottom: 1em;">
+			<h:form>
+				<h:panelGrid columns="2" cellpadding="5">
+					<h:outputLabel value="nazwisko:" />
+					<p:inputText value="#{userListBB.name}" />
+					<p:commandButton value="Szukaj" update="form-table" />
+				</h:panelGrid>
+			</h:form>
+		</p:panel>
+	
+		<p:messages />
+	
+		<h:form id="form-table" style="margin-bottom:1em;">
+<!-- DODAWANIE WIZYTY -->
+			<p:commandButton value="Dodaj wizytę"
+				 style="margin-bottom:1em;"/>
+<!-- TABELA -->
+						<p:dataTable value="#{userListBB.list}" var="u">
+
+
+							<!-- IMIĘ I NAZWISKO -->
+							<p:column priority="5">
+								<f:facet name="header">
+									<h:outputText value="Imię i nazwisko" />
+								</f:facet>
+								<h:outputText value="#{u.name}" />
+							</p:column>
+							
+							<!-- NUMER TEL.  -->
+							<p:column priority="5">
+								<f:facet name="header">
+									<h:outputText value="Numer telefonu" />
+								</f:facet>
+								<h:outputText value="#{u.phoneNumber}" />
+							</p:column>
+				
+							
+				
+							
+
+				
+						</p:dataTable>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+</html>

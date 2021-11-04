@@ -13,14 +13,16 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 
-import jsf.haircutter.dao.UserDAO;
-import jsf.haircutter.entities.User;
+import jsf.haircutter.dao.ReservationDAO;
+import jsf.haircutter.entities.Reservation;
 
 @Named
 @RequestScoped
-public class UserListBB {
+public class ReservationListBB {
 	private String name;
 	private String phoneNumber;
+	private int idReservation;
+	private String time;
 
 
 	@Inject
@@ -30,17 +32,17 @@ public class UserListBB {
 	Flash flash;
 	
 	@EJB
-	UserDAO userDAO;
+	ReservationDAO reservationDAO;
 	
 	
 	
 	
-	public List<User> getFullList(){
-		return userDAO.getFullList();
+	public List<Reservation> getFullList(){
+		return reservationDAO.getFullList();
 	}
 
-//	public List<User> getList(){
-//		List<User> user_list = null;
+//	public List<Reservation> getList(){
+//		List<Reservation> list = null;
 //		
 //		//1. Prepare search params
 //		Map<String,Object> searchParams = new HashMap<String, Object>();
@@ -50,9 +52,9 @@ public class UserListBB {
 //		}
 //		
 //		//2. Get list
-//		user_list = userDAO.getList(searchParams);
+//		list = userDAO.getList(searchParams);
 //		
-//		return user_list;
+//		return list;
 //	}
 
 	//GETTERS AND SETTERS
@@ -69,6 +71,22 @@ public class UserListBB {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public int getIdReservation() {
+		return idReservation;
+	}
+
+	public void setIdReservation(int idReservation) {
+		this.idReservation = idReservation;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
 	}
 
 

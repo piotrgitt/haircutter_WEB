@@ -12,7 +12,6 @@ import javax.faces.context.Flash;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-
 import jsf.haircutter.dao.ReservationDAO;
 import jsf.haircutter.entities.Reservation;
 
@@ -24,6 +23,8 @@ public class ReservationListBB {
 	private int idReservation;
 	private String time;
 
+//	private static final String PAGE_PERSON_EDIT = "personEdit?faces-redirect=true";
+	private static final String PAGE_STAY_AT_THE_SAME = null;
 
 	@Inject
 	FacesContext ctx;
@@ -41,21 +42,59 @@ public class ReservationListBB {
 		return reservationDAO.getFullList();
 	}
 
-//	public List<Reservation> getList(){
-//		List<Reservation> list = null;
+	public List<Reservation> getList(){
+		List<Reservation> list = null;
+		
+		//1. Prepare search params
+		Map<String,Object> searchParams = new HashMap<String, Object>();
+		
+		if (name != null && name.length() > 0){
+			searchParams.put("name", name);
+		}
+		
+		//2. Get list
+		list = reservationDAO.getList(searchParams);
+		
+		return list;
+	}
+	
+	
+	
+	
+//	public String newReservation(){
+//		Reservation person = new Reservation();
 //		
-//		//1. Prepare search params
-//		Map<String,Object> searchParams = new HashMap<String, Object>();
+//		//1. Pass object through session
+//		//HttpSession session = (HttpSession) extcontext.getSession(true);
+//		//session.setAttribute("person", person);
 //		
-//		if (name != null && name.length() > 0){
-//			searchParams.put("name", name);
-//		}
+//		//2. Pass object through flash	
+//		flash.put("reservation", reservation);
 //		
-//		//2. Get list
-//		list = userDAO.getList(searchParams);
-//		
-//		return list;
+//		return PAGE_PERSON_EDIT;
 //	}
+
+//	public String editPerson(Reservation reservation){
+//		//1. Pass object through session
+//		//HttpSession session = (HttpSession) extcontext.getSession(true);
+//		//session.setAttribute("person", person);
+//		
+//		//2. Pass object through flash 
+//		flash.put("reservation", reservation);
+//		
+//		return PAGE_PERSON_EDIT;
+//	}
+
+	public String deleteReservation(Reservation reservation){
+		reservationDAO.remove(reservation);
+		return PAGE_STAY_AT_THE_SAME;
+	}
+	
+	
+	
+	
+	
+	
 
 	//GETTERS AND SETTERS
 	public String getPhone_number() {

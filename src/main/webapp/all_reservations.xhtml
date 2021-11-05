@@ -29,8 +29,8 @@
 <!-- DODAWANIE WIZYTY -->
 			<p:commandButton value="Dodaj wizytę"
 				 style="margin-bottom:1em;"/>
-<!-- TABELA -->
-						<p:dataTable value="#{userListBB.list}" var="u">
+<!-- TABELA --> 
+						<p:dataTable value="#{reservationListBB.getFullList()}" var="r">
 
 
 							<!-- IMIĘ I NAZWISKO -->
@@ -38,21 +38,44 @@
 								<f:facet name="header">
 									<h:outputText value="Imię i nazwisko" />
 								</f:facet>
-								<h:outputText value="#{u.name}" />
+								<h:outputText value="#{r.user.name}" />
 							</p:column>
 							
-							<!-- NUMER TEL.  -->
+							<!--	NUMER TEL.  -->
 							<p:column priority="5">
 								<f:facet name="header">
 									<h:outputText value="Numer telefonu" />
 								</f:facet>
-								<h:outputText value="#{u.phoneNumber}" />
+								<h:outputText value="#{r.user.phoneNumber}" />
+							</p:column>
+							
+							<!-- TIMESTAMP WIZYTY --> 
+							<p:column priority="5">
+								<f:facet name="header">
+									<h:outputText value="Czas wizyty" />
+								</f:facet>
+								<h:outputText value="#{r.time}" />
+							</p:column>
+							
+							<!-- CZAS TRWANIA WIZYTY --> 
+							<p:column priority="5">
+								<f:facet name="header">
+									<h:outputText value="Czas trwania" />
+								</f:facet>
+								<h:outputText value="#{r.service.serviceTime}" />
+							</p:column>
+							
+							<!--	OPCJE.  -->
+							<p:column priority="5">
+								<f:facet name="header">
+									<h:outputText value="Opcje" />
+								</f:facet>
+								
+								<p:commandButton value="Usuń"
+								action="#{reservationListBB.deleteReservation(r)}" update="@form" />
+				
 							</p:column>
 				
-							
-				
-							
-
 				
 						</p:dataTable>
 		</h:form>

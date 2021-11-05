@@ -39,21 +39,21 @@ public class UserListBB {
 		return userDAO.getFullList();
 	}
 
-//	public List<User> getList(){
-//		List<User> user_list = null;
-//		
-//		//1. Prepare search params
-//		Map<String,Object> searchParams = new HashMap<String, Object>();
-//		
-//		if (name != null && name.length() > 0){
-//			searchParams.put("name", name);
-//		}
-//		
-//		//2. Get list
-//		user_list = userDAO.getList(searchParams);
-//		
-//		return user_list;
-//	}
+	public List<User> getList(){
+		List<User> user_list = null;
+		
+		//1. Prepare search params
+		Map<String,Object> searchParams = new HashMap<String, Object>();
+		
+		if (name != null && name.length() > 0){
+			searchParams.put("name", name);
+		}
+		
+		//2. Get list
+		user_list = userDAO.getList(searchParams);
+		
+		return user_list;
+	}
 
 	//GETTERS AND SETTERS
 	public String getPhone_number() {

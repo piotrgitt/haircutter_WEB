@@ -6,7 +6,9 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-<ui:composition template="/templates/main-template.xhtml">
+<ui:composition template="#{ remoteClient.details.role == &quot;root&quot; ? 
+'/templates/main-template-admin.xhtml' : remoteClient.details.role == &quot;user&quot; ? '/templates/main-template-user.xhtml' :
+'/templates/main-template.xhtml'}">
 
 
 
@@ -30,11 +32,11 @@
 			<p:commandButton value="Dodaj wizytę"
 				 style="margin-bottom:1em;"/>
 <!-- TABELA --> 
-						<p:dataTable value="#{reservationListBB.getFullList()}" var="r">
+						<p:dataTable value="#{reservationListBB.getFullList()}" var="r" >
 
 
 							<!-- IMIĘ I NAZWISKO -->
-							<p:column priority="5">
+							<p:column priority="5" width="12em">
 								<f:facet name="header">
 									<h:outputText value="Imię i nazwisko" />
 								</f:facet>
@@ -42,15 +44,16 @@
 							</p:column>
 							
 							<!--	NUMER TEL.  -->
-							<p:column priority="5">
+							<p:column priority="6" width="8em">
 								<f:facet name="header">
 									<h:outputText value="Numer telefonu" />
 								</f:facet>
 								<h:outputText value="#{r.user.phoneNumber}" />
 							</p:column>
+						
 							
 							<!-- TIMESTAMP WIZYTY --> 
-							<p:column priority="5">
+							<p:column priority="7" width="14em">
 								<f:facet name="header">
 									<h:outputText value="Czas wizyty" />
 								</f:facet>
@@ -58,15 +61,23 @@
 							</p:column>
 							
 							<!-- CZAS TRWANIA WIZYTY --> 
-							<p:column priority="5">
+							<p:column priority="8" width="6em">
 								<f:facet name="header">
 									<h:outputText value="Czas trwania" />
 								</f:facet>
 								<h:outputText value="#{r.service.serviceTime}" />
 							</p:column>
 							
+							<!-- OPIS --> 
+							<p:column priority="9" width="35em" >
+								<f:facet name="header">
+									<h:outputText value="Opis" />
+								</f:facet>
+								<h:outputText value="#{r.reservationDescription}" />
+							</p:column>
+							
 							<!--	OPCJE.  -->
-							<p:column priority="5">
+							<p:column priority="11">
 								<f:facet name="header">
 									<h:outputText value="Opcje" />
 								</f:facet>

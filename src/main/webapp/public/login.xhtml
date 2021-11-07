@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition template="#{ remoteClient.details.role == &quot;root&quot; ? 
+'/templates/main-template-admin.xhtml' : remoteClient.details.role == &quot;user&quot; ? '/templates/main-template-user.xhtml' :
+'/templates/main-template.xhtml'}">
+	<ui:define name="content">
+	
+		<!-- Main -->
+		<div id="main" class="wrapper style1">
+		        <div class="container">
+		            <header class="major">
+		                    <h2>Logowanie</h2>
+		            </header>
+		            <h:form method="post" action="{$conf->action_root}login" >
+		                <div class="row gtr-uniform gtr-50">
+		                    <div class="col-6 col-12-xsmall">
+		                            <!-- LOGIN -->
+										<p:inputText id="p-login" value="#{loginBB.login}"
+											required="true" requiredMessage="Podaj login"
+											validatorMessage="co najwyżej 40 znaków" placeholder="Login">
+											<f:validateLength maximum="40"/>
+										</p:inputText>
+		                            
+		                    </div>
+		                    <div class="col-6 col-12-xsmall">
+		                            <!-- PASSWORD -->
+										<p:password id="p-password" value="#{loginBB.pass}"
+											required="true" requiredMessage="Podaj hasło"
+											validatorMessage="co najwyżej 40 znaków i co najmniej 3 znaki" placeholder="Hasło">
+											<f:validateLength maximum="40" minimum="3"/>
+										</p:password>
+		                    </div>   
+		                </div> 
+		                <p:messages id="msgs" /> 
+		            
+		            <div class="col-12">    
+		                        <p:commandButton value="Zaloguj" action="#{loginBB.doLogin()}" update="@form" class="button"/>        
+		            </div>    
+		                
+		            </h:form>           
+		        </div>
+		</div>
+	</ui:define>
+
+</ui:composition>
+</html>

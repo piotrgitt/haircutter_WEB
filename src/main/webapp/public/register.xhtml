@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition template="#{ remoteClient.details.role == &quot;root&quot; ? 
+'/templates/main-template-admin.xhtml' : remoteClient.details.role == &quot;user&quot; ? '/templates/main-template-user.xhtml' :
+'/templates/main-template.xhtml'}">
+
+
+
+	<ui:define name="content">
+		<!-- Main -->
+		<div id="main" class="wrapper style1">
+			<div class="container">
+				<header class="major">
+				<h2>Rejestracja</h2>
+				</header>
+				<header class="minor">
+				<h3>Zarejestruj się aby zarezerwować wizytę on-line!</h3>
+				</header>
+
+				<!-- Register form -->
+				<section> <h:form>
+					<div class="row gtr-uniform gtr-50">
+						<section id="five" class="wrapper style special fade">
+						<div class="container">
+							<header>
+							<div style="max-width: 35%; margin-left: 32.5%">
+								<ul class="actions stacked">
+									<!-- LOGIN -->
+									<li>
+										<p:inputText id="p-login" value="#{registerBB.user.login}"
+											required="true" requiredMessage="Podaj login"
+											validatorMessage="co najwyżej 40 znaków" placeholder="Login">
+											<f:validateLength maximum="40"/>
+										</p:inputText>
+										<p:message for="p-login" display="icon" rendered="#{not empty facesContext.messageList}"/>
+									</li>
+									<!-- IMIĘ -->
+									<li>
+										<p:inputText id="p-name" value="#{registerBB.user.name}"
+											required="true" requiredMessage="Podaj imię"
+											validatorMessage="co najwyżej 40 znaków" placeholder="Imię i nazwisko">
+											<f:validateLength maximum="40"/>
+										</p:inputText>
+										<p:message for="p-name" display="icon" rendered="#{not empty facesContext.messageList}"/>
+									</li>
+									<!-- E-MAIL -->
+									<li>
+										<p:inputText id="p-email" value="#{registerBB.user.EMail}"
+											required="true" requiredMessage="Podaj e-mail"
+											validatorMessage="co najwyżej 40 znaków" placeholder="E-mail">
+											<f:validateLength maximum="40"/>
+										</p:inputText>
+										<p:message for="p-email" display="icon" rendered="#{not empty facesContext.messageList}"/>
+									</li>
+									<!-- PHONE NUMBER -->
+									<li>
+										<p:inputText id="p-phoneNumber" value="#{registerBB.user.phoneNumber}"
+											required="true" requiredMessage="Podaj nr telefonu"
+											validatorMessage="co najwyżej 9 znaków" placeholder="Nr telefonu">
+											<f:validateLength maximum="9"/>
+										</p:inputText>
+										<p:message for="p-phoneNumber" display="icon" rendered="#{not empty facesContext.messageList}"/>
+									</li>
+									<!-- PASSWORD -->
+									<li>
+										<p:password id="p-password" value="#{registerBB.user.password}"
+											required="true" requiredMessage="Podaj hasło"
+											validatorMessage="co najwyżej 40 znaków i co najmniej 3 znaki" placeholder="Hasło">
+											<f:validateLength maximum="40" minimum="3"/>
+										</p:password>
+										<p:message for="p-name" display="icon" rendered="#{not empty facesContext.messageList}"/>
+									</li>
+									<!-- PASSWORD CONFIRMATION -->
+									<li>
+										<p:password id="p-passwordConfirmation" value="#{registerBB.passwordConfirmation}"
+											required="true" requiredMessage="Potwierdz hasło"
+											validatorMessage="co najwyżej 40 znaków i co najmniej 3 znaki" placeholder="Potwierdz hasło">
+											<f:validateLength maximum="40"/>
+										</p:password>
+										<p:message for="p-name" display="icon" rendered="#{not empty facesContext.messageList}"/>
+									</li>
+									
+							
+								</ul>
+							</div>
+							</header>
+						<p:messages id="msgs" />
+						</div>
+						</section>
+						<section id="five" class="wrapper style special fade">
+						<div class="container">
+							<header>
+							<ul class="actions stacked">
+								<li><p:commandButton value="Zapisz" action="#{registerBB.saveData()}"
+									style="margin-right: 1em;" update="@form" /></li>
+
+								<li>
+										
+										<h:link value="Masz już koknto? Zaloguj się." outcome="login" />
+										</li>
+							</ul>
+							</header>
+
+						</div>
+						</section>
+					</div>
+				</h:form>  </section>
+
+			</div>
+		</div>
+
+
+	</ui:define>
+
+</ui:composition>
+</html>

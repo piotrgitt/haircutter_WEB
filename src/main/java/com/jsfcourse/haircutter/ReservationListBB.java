@@ -14,6 +14,7 @@ import javax.inject.Named;
 
 import jsf.haircutter.dao.ReservationDAO;
 import jsf.haircutter.entities.Reservation;
+import jsf.haircutter.entities.User;
 
 @Named
 @RequestScoped
@@ -54,6 +55,14 @@ public class ReservationListBB {
 		
 		//2. Get list
 		list = reservationDAO.getList(searchParams);
+		
+		return list;
+	}
+	
+	public List<Reservation> getUserReservationList(User user){
+		List<Reservation> list = null;
+		
+		list = reservationDAO.getUserReservationList(user);
 		
 		return list;
 	}

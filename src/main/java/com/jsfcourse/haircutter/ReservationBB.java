@@ -1,6 +1,7 @@
 package com.jsfcourse.haircutter;
 
-import java.time.LocalDate;
+import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -8,8 +9,10 @@ import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+
 
 import org.primefaces.event.SelectEvent;
 
@@ -20,21 +23,27 @@ import jsf.haircutter.entities.User;
 import jsf.haircutter.entities.Reservation;
 
 @Named
-@RequestScoped
-public class ReservationBB  {
+@SessionScoped
+public class ReservationBB implements Serializable  {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3791871974564937787L;
 	private static final String PAGE_THANKS = "/public/thanks?faces-redirect=true";
 	private static final String PAGE_CHOOSE_TIME = "/pages/userPages/temp_reservation?faces-redirect=true";
 	private static final String PAGE_STAY_AT_THE_SAME = null;
 
 	private boolean servicesRendered  =  true;
+	private boolean dateSet = false;
+	private boolean timeSet = false;
 	
 	//SETTING CALENDAR
-	private LocalDate date;
-	private LocalDate date2;
-	 private LocalDate minDateTime;
-	 private LocalDate maxDateTime;
-	private boolean dateSet = false;
+	private Date date;
+	private Date dateTime;
+	private Date minDateTime;
+	private Date maxDateTime;
+	
    
 	@Inject
 	FacesContext ctx;
@@ -63,22 +72,33 @@ public class ReservationBB  {
 		reservation.setUser(remoteClient);
 		reservation.setDuration(null);
 		this.setServicesRendered(false);
-		
-
-		
-
 		return PAGE_STAY_AT_THE_SAME;
 	}
 	
+	public String confirmReservation() {
+		reservation.setTime(date);
+		reservationDAO.create(reservation);
+		servicesRendered = true;
+		dateSet=false;
+		timeSet=false;
+		
+		return PAGE_THANKS;
+	}
 	
-	public void handleDateSelect(SelectEvent<LocalDate> event) {
-		System.out.println(dateSet);
+	
+	public void handleDateSelect(SelectEvent<Date> event) {
 	    date = event.getObject();
 	    dateSet = true;
 	    
 	    //Add facesmessage
 	}
-	//PRIME FACES CALENDAR SETTINGS
+	
+	public void handleTimeSelect(SelectEvent<Date> event) {
+	    dateTime = event.getObject();
+	    timeSet = true;
+	    
+	    //Add facesmessage
+	}
 	
 
 	// GETTERS AND SETTERS
@@ -107,7 +127,7 @@ public class ReservationBB  {
 		this.servicesRendered = servicesRendered;
 	}
 
-	public LocalDate getDate() {
+	public Date getDate() {
 		return date;
 	}
 
@@ -119,32 +139,32 @@ public class ReservationBB  {
 		this.dateSet = dateSet;
 	}
 
-	public void setDate(LocalDate date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 
-	public LocalDate getDate2() {
-		return date2;
-	}
-
-	public void setDate2(LocalDate date2) {
-		this.date2 = date2;
-	}
-
-	public LocalDate getMinDateTime() {
+	public Date getMinDateTime() {
 		return minDateTime;
 	}
 
-	public void setMinDateTime(LocalDate minDateTime) {
+	public void setMinDateTime(Date minDateTime) {
 		this.minDateTime = minDateTime;
 	}
 
-	public LocalDate getMaxDateTime() {
+	public Date getMaxDateTime() {
 		return maxDateTime;
 	}
 
-	public void setMaxDateTime(LocalDate maxDateTime) {
+	public void setMaxDateTime(Date maxDateTime) {
 		this.maxDateTime = maxDateTime;
+	}
+
+	public Date getDateTime() {
+		return dateTime;
+	}
+
+	public void setDateTime(Date dateTime) {
+		this.dateTime = dateTime;
 	}
 
 	

@@ -1,5 +1,6 @@
 package com.jsfcourse.haircutter;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -17,8 +19,12 @@ import jsf.haircutter.entities.Reservation;
 import jsf.haircutter.entities.User;
 
 @Named
-@RequestScoped
-public class ReservationListBB {
+@ViewScoped
+public class ReservationListBB implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2296984902550040713L;
 	private String name;
 	private String phoneNumber;
 	private int idReservation;

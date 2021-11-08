@@ -14,33 +14,28 @@
 	<h:outputStylesheet name="css/all.css" library="assets" />
 	<h:outputStylesheet name="all.css" library="assets" />
 	<h:outputStylesheet name="css/noscript.css" library="assets"/>
-
-
-
+	<!-- DatePicker JavaScript & CSS -->
+	
+<!-- 	<h:outputScript library="assets" name="js/functions.js" /> -->
+	
 		
 </h:head>
 
 <h:body>
- 	
 	<div id="page-wrapper">
 	
 		<!-- Header -->
 			<div id="header">
 				<h1 id="logo"><h:link value="Haircutter" outcome="/public/index" /></h1>
-				
 				<nav id="nav">
-				
 					<ul>
 						<li><h:link value="Strona główna" outcome="/public/index" /></li>
 						<li><h:link value="Usługi" outcome="/public/services" /></li>
-						<li><h:link value="Galeria" outcome="/public/gallery" /></li>
 						<li><h:link value="Cennik" outcome="/public/pricing" /></li>
 						<li><h:link value="Kontakt" outcome="/public/contact" /></li>
 						<li><h:link value="Zaplanuj wizytę" outcome="/pages/userPages/reservation" /></li>
-						<li><h:link value="Zarejestruj się" outcome="/public/register" class="button primary" /></li>
-						<li><h:link value="Zaloguj się " outcome="/public/login" /></li>
-						
-               
+						<li><h:link value="Moje rezerwacje" outcome="/pages/userPages/my_reservations" /></li>
+						<li><h:form><h:commandButton value="Wyloguj" action="#{loginBB.doLogout()}" /></h:form></li>
 					</ul>
 				</nav>
 			</div>
@@ -70,14 +65,14 @@
 			</div>
 
 		<!-- Scripts -->
-			<h:outputScript library="assets" name="js/jquery.min.js" />
-			<h:outputScript library="assets" name="js/jquery.scrolly.min.js" />
-			<h:outputScript library="assets" name="js/jquery.dropotron.min.js" />
-			<h:outputScript library="assets" name="js/jquery.scrollex.min.js" />
-			<h:outputScript library="assets" name="js/browser.min.js" />
-			<h:outputScript library="assets" name="js/breakpoints.min.js" />
-			<h:outputScript library="assets" name="js/util.js" />
-			<h:outputScript library="assets" name="js/main.js" />
+<!-- 			<h:outputScript library="assets" name="js/jquery.min.js" /> -->
+<!-- 			<h:outputScript library="assets" name="js/jquery.scrolly.min.js" /> -->
+<!-- 			<h:outputScript library="assets" name="js/jquery.dropotron.min.js" /> -->
+<!-- 			<h:outputScript library="assets" name="js/jquery.scrollex.min.js" /> -->
+<!-- 			<h:outputScript library="assets" name="js/browser.min.js" /> -->
+<!-- 			<h:outputScript library="assets" name="js/breakpoints.min.js" /> -->
+<!-- 			<h:outputScript library="assets" name="js/util.js" /> -->
+<!-- 			<h:outputScript library="assets" name="js/main.js" /> -->
 			
 		
         </div>  

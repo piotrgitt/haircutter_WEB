@@ -8,7 +8,7 @@
 
 <ui:composition
 	template="#{ remoteClient.details.role == &quot;root&quot; ? 
-			'/templates/main-template-admin.xhtml' : remoteClient.details.role == &quot;user&quot; ? '/templates/main-template-user.xhtml' :
+			'/templates/main-template-admin.xhtml' : remoteClient.details.role == &quot;user&quot; ? '/templates/main-template-user-no-scripts.xhtml' :
 			'/templates/main-template.xhtml'}">
 
 	<ui:define name="content">
@@ -32,9 +32,9 @@
 				<h:form id="form-table" style="margin-bottom:1em;">
 					<p:outputLabel for="form-table" value="Wybierz usługę"
 						rendered="#{reservationBB.servicesRendered}" />
-						
-						
-						
+
+
+
 					<!-- TABELA WIZYT-->
 					<p:dataTable value="#{reservationBB.getServiceList()}" var="s"
 						rendered="#{reservationBB.servicesRendered}">
@@ -45,6 +45,13 @@
 								<h:outputText value="Nazwa usługi" />
 							</f:facet>
 							<h:outputText value="#{s.serviceName}" />
+						</p:column>
+						<!-- TEST -->
+						<p:column priority="5">
+							<f:facet name="header">
+								<h:outputText value="WIDOCZNE?" />
+							</f:facet>
+							<h:outputText value="#{reservationBB.servicesRendered}" />
 						</p:column>
 
 						<!-- CENA -->
@@ -75,12 +82,12 @@
 
 						</p:column>
 					</p:dataTable>
-					
-					
-					
+
+
+
 					<!-- TWOJA WIZYTA-->
-<!-- 					<p:outputLabel for="form-table" value="Usługa" -->
-<!-- 						rendered="#{!reservationBB.servicesRendered}" /> -->
+					<!-- 					<p:outputLabel for="form-table" value="Usługa" -->
+					<!-- 						rendered="#{!reservationBB.servicesRendered}" /> -->
 					<p:dataTable value="asd"
 						rendered="#{!reservationBB.servicesRendered}">
 
@@ -92,6 +99,22 @@
 							<h:outputText
 								value="#{reservationBB.reservation.reservationDescription}" />
 						</p:column>
+
+						<!-- TEST -->
+						<p:column priority="5">
+							<f:facet name="header">
+								<h:outputText value="WIDOCZNA TABELA" />
+							</f:facet>
+							<h:outputText value="#{reservationBB.servicesRendered}" />
+						</p:column>
+						<!-- TEST -->
+						<p:column priority="5">
+							<f:facet name="header">
+								<h:outputText value="DATA USTAWIONA" />
+							</f:facet>
+							<h:outputText value="#{reservationBB.dateSet}" />
+						</p:column>
+					
 
 						<!-- CENA -->
 						<p:column priority="7">
@@ -112,34 +135,35 @@
 						</p:column>
 
 					</p:dataTable>
-
-
-					<br></br>
 					<!-- DATA -->
-					
 					<h:form id="formData" rendered="#{!reservationBB.servicesRendered}">
 						<p:growl id="msgs" showDetail="true"
 							skipDetailIfEqualsSummary="true" />
 						<div class="p-field p-col-12 p-md-4">
 							<p:outputLabel for="dateTemplate" value="Wybierz datę wizyty" />
-							<p:datePicker id="dateTemplate" value="#{reservationBB.date}" dateTemplate="dateTemplateFunc">
-								<p:ajax event="dateSelect" listener="#{reservationBB.setDateSet(true)}" update="formData"/>
+							<p:datePicker id="dateTemplate" value="#{reservationBB.date}"
+								dateTemplate="dateTemplateFunc">
+								<p:ajax event="dateSelect" listener="#{reservationBB.handleDateSelect}" update="form-table formData formTime" />
 							</p:datePicker>
-						</div>
-						<p:commandButton value="OK" action="#{reservationBB.setDateSet(true)}" update="formData" />
+						
 						<!-- GODZINA -->
-						<h:form id="timeMinMax" rendered="#{!reservationBB.dateSet}">
-							<div class="p-field p-col-12 p-md-4">
-								<p:outputLabel for="timeMinMax" value="Wybierz godzinę wizyty" />
-								<p:datePicker id="timeMinMax" value="#{reservationBB.date2}"  mindate="#{reservationBB.minDateTime}" maxdate="#{reservationBB.maxDateTime}" >
-									<p:ajax event="dateSelect" listener="#{reservationBB.setDateSet(true)}" />
-								</p:datePicker>
-							</div>
-						</h:form>			
+						<h:form id="formTime" rendered="#{reservationBB.dateSet}">
+							<p:outputLabel for="test" value="Wybierz godzinę wizyty" />
+							<p:datePicker id="test" value="#{reservationBB.dateTime}">
+								<p:ajax event="dateSelect" listener="#{reservationBB.handleTimeSelect}" update="msg" />
+							</p:datePicker>
+							<p:messages id="msg" />
+							<p:commandButton value="Potwierdz wizytę" action="#{reservationBB.confirmReservation}" rendered="#{reservationBB.timeSet}" update="@form" />
+						</h:form>
+						</div>
+						
+
 					</h:form>
-					
+
 					<p:messages />
+
 				</h:form>
+
 
 			</div>
 		</div>

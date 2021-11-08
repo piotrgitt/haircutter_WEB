@@ -5,31 +5,39 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
- 
+
 <ui:composition
 	template="#{ remoteClient.details.role == &quot;root&quot; ? 
 			'/templates/main-template-admin.xhtml' : remoteClient.details.role == &quot;user&quot; ? '/templates/main-template-user.xhtml' :
 			'/templates/main-template.xhtml'}">
-	
+
 	<ui:define name="content">
 		<script type="text/javascript">
 	    //<![CDATA[
 	    function dateTemplateFunc(date) {
-	        return '<span style="background-color:' + ((date.day < 21 && date.day > 10) ? '#81C784' : 'inherit') + ';border-radius:50%;width: 2.5rem;height: 2.5rem;line-height: 2.5rem;display: flex;align-items: center;justify-content: center;">' + date.day + '</span>';
+	        return '<span style="background-color:' + (( date.day > 6 && date.day < 10 ) ? '#81C784' : 'inherit') + ';border-radius:50%;width: 2.5rem;height: 2.5rem;line-height: 2.5rem;display: flex;align-items: center;justify-content: center;">' + date.day + '</span>';
 	    }
 	
 	    //]]>
-		</script>
+	</script>
+
 		<!-- Main -->
 		<div id="main" class="wrapper style1">
 			<div class="container">
 				<div class="major">
-					<h2>Wybierz usługę</h2>
+					<h2>Rezerwacja</h2>
 				</div>
 
+
 				<h:form id="form-table" style="margin-bottom:1em;">
-					<!-- TABELA -->
-					<p:dataTable value="#{reservationBB.getServiceList()}" var="s" rendered="#{reservationBB.servicesRendered}">
+					<p:outputLabel for="form-table" value="Wybierz usługę"
+						rendered="#{reservationBB.servicesRendered}" />
+						
+						
+						
+					<!-- TABELA WIZYT-->
+					<p:dataTable value="#{reservationBB.getServiceList()}" var="s"
+						rendered="#{reservationBB.servicesRendered}">
 
 						<!-- NAZWA USLUGI -->
 						<p:column priority="5">
@@ -63,17 +71,73 @@
 
 							<p:commandButton value="Wybierz usługę"
 								action="#{reservationBB.newReservation(s , remoteClient.details)}"
-								update="@form" />
+								update="form-table" />
 
 						</p:column>
 					</p:dataTable>
-					<h:form id="form" rendered="#{!reservationBB.servicesRendered}">
-						<p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true"/>
+					
+					
+					
+					<!-- TWOJA WIZYTA-->
+<!-- 					<p:outputLabel for="form-table" value="Usługa" -->
+<!-- 						rendered="#{!reservationBB.servicesRendered}" /> -->
+					<p:dataTable value="asd"
+						rendered="#{!reservationBB.servicesRendered}">
+
+						<!-- NAZWA USLUGI -->
+						<p:column priority="5">
+							<f:facet name="header">
+								<h:outputText value="Nazwa usługi" />
+							</f:facet>
+							<h:outputText
+								value="#{reservationBB.reservation.reservationDescription}" />
+						</p:column>
+
+						<!-- CENA -->
+						<p:column priority="7">
+							<f:facet name="header">
+								<h:outputText value="CENA(PLN)" />
+							</f:facet>
+							<h:outputText
+								value="#{reservationBB.reservation.service.servicePrice}" />
+						</p:column>
+
+						<!-- CZAS TRWANIA WIZYTY -->
+						<p:column priority="8">
+							<f:facet name="header">
+								<h:outputText value="Czas trwania" />
+							</f:facet>
+							<h:outputText
+								value="#{reservationBB.reservation.service.serviceTime}" />
+						</p:column>
+
+					</p:dataTable>
+
+
+					<br></br>
+					<!-- DATA -->
+					
+					<h:form id="formData" rendered="#{!reservationBB.servicesRendered}">
+						<p:growl id="msgs" showDetail="true"
+							skipDetailIfEqualsSummary="true" />
 						<div class="p-field p-col-12 p-md-4">
-			                <p:outputLabel for="dateTemplate" value="Date Template"/>
-			                <p:datePicker id="dateTemplate" value="#{reservationBB.date}" dateTemplate="dateTemplateFunc"/>
-			            </div>
+							<p:outputLabel for="dateTemplate" value="Wybierz datę wizyty" />
+							<p:datePicker id="dateTemplate" value="#{reservationBB.date}" dateTemplate="dateTemplateFunc">
+								<p:ajax event="dateSelect" listener="#{reservationBB.setDateSet(true)}" update="formData"/>
+							</p:datePicker>
+						</div>
+						<p:commandButton value="OK" action="#{reservationBB.setDateSet(true)}" update="formData" />
+						<!-- GODZINA -->
+						<h:form id="timeMinMax" rendered="#{!reservationBB.dateSet}">
+							<div class="p-field p-col-12 p-md-4">
+								<p:outputLabel for="timeMinMax" value="Wybierz godzinę wizyty" />
+								<p:datePicker id="timeMinMax" value="#{reservationBB.date2}"  mindate="#{reservationBB.minDateTime}" maxdate="#{reservationBB.maxDateTime}" >
+									<p:ajax event="dateSelect" listener="#{reservationBB.setDateSet(true)}" />
+								</p:datePicker>
+							</div>
+						</h:form>			
 					</h:form>
+					
 					<p:messages />
 				</h:form>
 
